@@ -35,3 +35,7 @@
 **/.vs
 
 #Directories
+.astyle
+
+#Exceptions
+!AStyle.exe

@@ -37,3 +37,6 @@ In the Arduino IDE, navigate to Sketch -> Include Library. You should see `SEMli
 #include <libmodule.h>
 ```
 is before the include statements for any libraries that depend on libmodule.
+
+### Atmel Studio
+As of present, libmodule is only distributed in source form. This means that you will need to manually add the libmodule files you need to include to your project. One way to go about this would be to add libmodule to your project as a git submodule.

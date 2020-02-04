@@ -12,7 +12,8 @@ It primarily targets AVR processors, compiled using `avr-gcc`. It is written in 
 
 This repository is used as a submodule in other respositories for the SEM project. It can also be used as an Ardino IDE library.
 
-## Using with the Arduino IDE
+## Usage
+### Arduino IDE
 These instructions are for Windows. Adjust as necessary for other systems.
 
 #### Set Arduino to use C++14

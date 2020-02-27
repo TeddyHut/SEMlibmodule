@@ -131,13 +131,14 @@ namespace libmodule
                 };
 
                 utility::Vector<Item *> m_items;
-                List(bool const wrap = true);
+                List(bool const wrap = true, bool const enable_left = true);
             protected:
                 void ui_update() override;
                 void ui_on_childComplete() override;
 
                 uint8_t pm_currentitem = 0;
                 bool pm_wrap;
+                bool pm_enable_left;
                 bool run_init = true;
             };
 

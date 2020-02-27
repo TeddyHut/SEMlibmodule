@@ -30,7 +30,7 @@ void libmodule::ui::segdpad::List::Item::on_finish(Screen *const screen) {}
 
 void libmodule::ui::segdpad::List::Item::on_highlight(bool const firstcycle) {}
 
-libmodule::ui::segdpad::List::List(bool const wrap /*= true*/) : pm_wrap(wrap) {}
+libmodule::ui::segdpad::List::List(bool const wrap /*= true*/, bool const enable_left) : pm_wrap(wrap), pm_enable_left(enable_left) {}
 
 void libmodule::ui::segdpad::List::ui_update()
 {
@@ -61,8 +61,8 @@ void libmodule::ui::segdpad::List::ui_update()
             }
         }
     }
-    //Go back a screen
-    else if(ui_common->dpad.left.get()) {
+    //Go back a screen if the left button is enabled for this list
+    else if(pm_enable_left && ui_common->dpad.left.get()) {
         ui_finish();
     }
     //Select the item

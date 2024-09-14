@@ -6,7 +6,7 @@ Originally it was a collection of utilities to assist in writing 'modules' for a
 
 It should be coupled with a repository that provides the hardware specific implementation, targetted at a particular microcontroller. These repositories can be found at:
  - https://github.com/TeddyHut/SEMlibmicavr
- - [ ] Add libarduino_m328
+ - https://github.com/TeddyHut/SEMlibarduino_m328
 
 It primarily targets AVR processors, compiled using `avr-gcc`. It is written in C++, but `avr-gcc` only provides the C Standard Library. This means it is more "C with classes" than C++. C++ features up to C++14 are used, as Atmel Studio 7 only ships with GCC 5.4.0.
 

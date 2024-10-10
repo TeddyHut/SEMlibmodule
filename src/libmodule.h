@@ -14,6 +14,7 @@
 #include "libmodule/74hc595.h"
 #include "libmodule/mux.h"
 #include "libmodule/ltd_2601g_11.h"
+#include "libmodule/hd44780.h"
 #include "libmodule/twislave.h"
 #include "libmodule/module.h"
 #include "libmodule/ui.h"

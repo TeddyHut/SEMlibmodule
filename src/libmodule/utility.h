@@ -119,6 +119,10 @@ namespace libmodule
             virtual void toggle();
         };
 
+        template <typename T>
+        struct Bidirectional : public Input<T>, public Output<T> {
+        };
+
         /** \brief Create a value consisting partly or entirely of binary 1s.
          *
          * The value is created by progressively or-ing \c 0xff starting from the least significant byte (on the right) and moving to the most significant byte (on the left).

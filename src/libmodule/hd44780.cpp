@@ -1,4 +1,5 @@
 #include "hd44780.h"
+#include <util/delay.h>
 
 using namespace libmodule::userio;
 
@@ -63,14 +64,19 @@ IC_HD44780 &IC_HD44780::operator<<(hd::instr const p0) {
     switch (p0) {
     case hd::instr::clear_display:
         data_write(0b00000001, 0);
+        if (pin.rw == nullptr)
+            _delay_us(2000);
         reset();
         break;
     case hd::instr::return_home:
         data_write(0b00000010, 0);
+        if (pin.rw == nullptr)
+            _delay_us(2000);
         reset();
         break;
     case hd::instr::init_4bit:
         pin.en->set(false);
+        if (pin.rw != nullptr)
         pin.rw->set(false);
         pin.rs->set(false);
         data_out(0b0010);
@@ -258,6 +264,7 @@ IC_HD44780 &IC_HD44780::operator<<(void *const p0) {
 }
 
 bool IC_HD44780::busy(uint8_t *const address_counter) const {
+    if (pin.rw == nullptr) hw::panic();
     pin.data->get();
     uint8_t rtrn;
     pin.en->set(false);
@@ -290,6 +297,7 @@ IC_HD44780::IC_HD44780(Pin const &npin) : pin(npin) {
 }
 
 uint8_t IC_HD44780::data_read(uint8_t const rs_data, uint8_t const rw_read) const {
+    if (pin.rw == nullptr) hw::panic();
     // Set to inputs
     pin.data->get();
     uint8_t rtrn;
@@ -312,6 +320,7 @@ uint8_t IC_HD44780::data_read(uint8_t const rs_data, uint8_t const rw_read) cons
 void IC_HD44780::data_write(uint8_t const value, uint8_t const rs_data, uint8_t const rw_read) const {
     pin.en->set(false);
     pin.rs->set(rs_data);
+    if (pin.rw != nullptr)
     pin.rw->set(rw_read);
     data_out(value >> 4);
     // Delay?
@@ -322,7 +331,10 @@ void IC_HD44780::data_write(uint8_t const value, uint8_t const rs_data, uint8_t 
     pin.en->set(true);
     // Delay?
     pin.en->set(false);
+    if (pin.rw != nullptr)
     while (busy());
+    else
+        _delay_us(100);
 }
 
 uint8_t IC_HD44780::data_in() const {

@@ -77,13 +77,27 @@ IC_HD44780 &IC_HD44780::operator<<(hd::instr const p0) {
     case hd::instr::init_4bit:
         pin.en->set(false);
         if (pin.rw != nullptr)
-        pin.rw->set(false);
+            pin.rw->set(false);
         pin.rs->set(false);
+        //data_out(0b0010);
+        data_out(0b0011);
+        pin.en->set(true);
+        _delay_us(1);
+        pin.en->set(false);
+        _delay_us(4500);
+        pin.en->set(true);
+        _delay_us(1);
+        pin.en->set(false);
+        _delay_us(4500);
+        pin.en->set(true);
+        _delay_us(1);
+        pin.en->set(false);
+        _delay_us(150);
         data_out(0b0010);
         pin.en->set(true);
-        // Need short delay here?
+        _delay_us(1);
         pin.en->set(false);
-        //Wait for busy flag?
+        _delay_us(100);
         reset();
         break;
     default:
@@ -321,7 +335,7 @@ void IC_HD44780::data_write(uint8_t const value, uint8_t const rs_data, uint8_t 
     pin.en->set(false);
     pin.rs->set(rs_data);
     if (pin.rw != nullptr)
-    pin.rw->set(rw_read);
+        pin.rw->set(rw_read);
     data_out(value >> 4);
     // Delay?
     pin.en->set(true);
@@ -332,7 +346,7 @@ void IC_HD44780::data_write(uint8_t const value, uint8_t const rs_data, uint8_t 
     // Delay?
     pin.en->set(false);
     if (pin.rw != nullptr)
-    while (busy());
+        while (busy());
     else
         _delay_us(100);
 }

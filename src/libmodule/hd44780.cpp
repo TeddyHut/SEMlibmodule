@@ -258,6 +258,7 @@ IC_HD44780 &IC_HD44780::operator<<(void *const p0) {
 }
 
 bool IC_HD44780::busy(uint8_t *const address_counter) const {
+    pin.data->get();
     uint8_t rtrn;
     pin.en->set(false);
     pin.rs->set(false);
@@ -289,6 +290,8 @@ IC_HD44780::IC_HD44780(Pin const &npin) : pin(npin) {
 }
 
 uint8_t IC_HD44780::data_read(uint8_t const rs_data, uint8_t const rw_read) const {
+    // Set to inputs
+    pin.data->get();
     uint8_t rtrn;
     pin.en->set(false);
     pin.rs->set(rs_data);

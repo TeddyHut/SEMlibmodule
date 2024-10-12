@@ -109,11 +109,11 @@ IC_HD44780 &IC_HD44780::operator<<(hd::instr const p0) {
 IC_HD44780 &IC_HD44780::operator<<(hd::entry_mode_set const p0) {
     switch (p0) {
     case hd::entry_mode_set::cursormove_left:
-        instr_data |= _BV(z_entrymodeset_cursormove);
+        instr_data &= ~_BV(z_entrymodeset_cursormove);
         instr_status |= _BV(z_entrymodeset_cursormove);
         break;
     case hd::entry_mode_set::cursormove_right:
-        instr_data &= ~_BV(z_entrymodeset_cursormove);
+        instr_data |= _BV(z_entrymodeset_cursormove);
         instr_status |= _BV(z_entrymodeset_cursormove);
         break;
     case hd::entry_mode_set::displayshift_enable:

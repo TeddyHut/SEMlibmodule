@@ -61,7 +61,7 @@ namespace libmodule
         protected:
             //---Parent functionality---
             //Spawn a new child object. Memory deallocation will be handled automatically.
-            void ui_spawn(Screen *const child);
+            void ui_spawn(Screen *const child, bool const delete_on_finish = true);
             //Main UI functionality. Called when there is no child object.
             virtual void ui_update();
             //Called before child is deleted.
@@ -73,7 +73,8 @@ namespace libmodule
         public:
             common_t *ui_common;
         protected:
-            bool ui_finished = false;
+            bool ui_finished : 1;
+            bool ui_delete_child_on_finish : 1;
         };
 
         namespace segdpad
@@ -242,7 +243,7 @@ namespace libmodule
 }
 
 template <typename common_t>
-libmodule::ui::Screen<common_t>::Screen(common_t *const ui_common /*= nullptr*/) : ui_common(ui_common) {}
+libmodule::ui::Screen<common_t>::Screen(common_t *const ui_common /*= nullptr*/) : ui_common(ui_common), ui_finished(false), ui_delete_child_on_finish(true) {}
 
 template <typename common_t>
 libmodule::ui::Screen<common_t>::~Screen()
@@ -258,16 +259,18 @@ void libmodule::ui::Screen<common_t>::ui_management_update()
 
     if(ui_child->ui_finished) {
         ui_on_childComplete();
-        delete ui_child;
+        if (ui_delete_child_on_finish)
+            delete ui_child;
         ui_child = nullptr;
     }
 }
 
 template <typename common_t>
-void libmodule::ui::Screen<common_t>::ui_spawn(Screen *const child)
+void libmodule::ui::Screen<common_t>::ui_spawn(Screen *const child, bool const delete_child_on_finish)
 {
     child->ui_common = ui_common;
     ui_child = child;
+    ui_delete_child_on_finish = delete_child_on_finish;
 }
 
 template <typename common_t>

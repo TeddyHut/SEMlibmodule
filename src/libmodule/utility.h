@@ -65,7 +65,7 @@ namespace libmodule
          * This function should be project dependent.
          * \todo Make a default 'weak' implementation.
          */
-        void panic();
+        void panic(const char *message = nullptr);
     }
 
 ///Primary namespace of utility.h

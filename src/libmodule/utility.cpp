@@ -40,7 +40,7 @@ void *operator new(unsigned int len)
  *
  * \return Returns \p ptr unchanged.
  */
-void *operator new(unsigned int len, void *ptr)
+void *operator new([[maybe_unused]] unsigned int len, void *ptr)
 {
     return ptr;
 }
@@ -52,7 +52,7 @@ void *operator new(unsigned int len, void *ptr)
  * \param [in] ptr Pointer passed to free.
  * \param [in] len Size of the allocated block (in bytes). Unused.
  */
-void operator delete(void *ptr, unsigned int len)
+void operator delete(void *ptr, [[maybe_unused]] unsigned int len)
 {
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         free(ptr);

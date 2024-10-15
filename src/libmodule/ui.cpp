@@ -26,9 +26,9 @@ libmodule::userio::Blinker::Pattern libmodule::ui::segdpad::pattern::edit = {
     500, 500, 0, 1, true, false
 };
 
-void libmodule::ui::segdpad::List::Item::on_finish(Screen *const screen) {}
+void libmodule::ui::segdpad::List::Item::on_finish([[maybe_unused]] Screen *const screen) {}
 
-void libmodule::ui::segdpad::List::Item::on_highlight(bool const firstcycle) {}
+void libmodule::ui::segdpad::List::Item::on_highlight([[maybe_unused]] bool const firstcycle) {}
 
 libmodule::ui::segdpad::List::List(bool const wrap /*= true*/, bool const enable_left) : pm_wrap(wrap), pm_enable_left(enable_left) {}
 
